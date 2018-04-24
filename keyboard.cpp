@@ -10,7 +10,9 @@ class key{
 
     public:
     char charcter;
-    int distance;
+    int  startDist;
+    key *adjList[4];
+    int altdist[4];
     //...more maybe
 
 };
@@ -22,9 +24,12 @@ class keyboard {
     //keyboard array 
     key board[32]; 
     double fitness;
+    keyboard();
+
+};
     
     //constructor
-    keyboard(){
+    keyboard::keyboard(){
         //array to be shuffled
         char to_shuffle[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
         'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s', 't', 'u', 'v', 
@@ -33,24 +38,69 @@ class keyboard {
 
         //adding charcters  and distances to board
         for (int i = 0; i<32 ; i++){
+
+            //setting charcters on board
             board[i].charcter = to_shuffle[i];
+
+            //setting startDistances
             if (i <= 3 || (i >= 6 && i<= 9))
-                board[i].distance = 92;
+                board[i].startDist = 92;
             if (i == 4 || i == 10)
-                board[i].distance = 100;
+                board[i].startDist = 100;
             if (i == 5)
-                board[i].distance = 150;
+                board[i].startDist = 150;
             if ((i >= 11 && i <= 14) || (i >= 17 && i<= 20))
-                board[i].distance = 0;
+                board[i].startDist = 0;
             if ((i >= 15 && i <= 16) || (i == 21))
-                board[i].distance = 90;
+                board[i].startDist = 90;
             if ((i >= 22 && i <= 25) || (i >= 27 && i<= 31))
-                board[i].distance = 97;               
+                board[i].startDist = 97;               
             if (i == 26)
-                board[i].distance = 155;
+                board[i].startDist = 155;
+
+            //setting adj matrices and alt distances
+            if (i == 3){
+                board[i].adjList = {board[4],board[15],NULL,NULL};
+                board[i].altdist = {90, 170, 1000, 1000};
+            }
+             if (i == 4){
+                board[i].adjList = {board[3],board[15],NULL,NULL};
+                board[i].altdist = {90, 92, 1000, 1000;
+            }
+             if (i ==5){
+                board[i].adjList = {board[6],board[16],NULL,NULL};
+                board[i].altdist = {90, 92, 1000, 1000};
+            }
+             if (i == 6){
+                board[i].adjList = {board[5],board[16],NULL,NULL};
+                board[i].altdist = {90, 150, 1000, 1000};
+            }
+             if (i == 15){
+                board[i].adjList = {board[3],board[4],board[25],board[26]};
+                board[i].altdist = {170, 92, 97, 97};
+            }
+             if (i == 16){
+                board[i].adjList = {board[5],board[6],board[27]};
+                board[i].altdist = {92, 150, 97, NULL};               
+            }
+             if (i == 25){
+                board[i].adjList = {board[15],board[26], NULL, NULL};
+                board[i].altdist = {97, 90};
+            }
+             if (i == 26){
+                board[i].adjList = {board[15],board[25], NULL, NULL};
+                board[i].altdist = {97, 90};
+                                
+            }
+             if (i == 27){
+                board[i].adjList = {board[16],board[26], NULL, NULL};
+                board[i].altdist = {97, 90};
+            }
+
         }
     }
 };
+
 
 //just testing to see if actually worked
 int main(){
