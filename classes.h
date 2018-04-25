@@ -26,77 +26,138 @@ class keyboard {
 };
     
     //constructor
-    keyboard::keyboard(){
-        //array to be shuffled
-        char to_shuffle[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s', 't', 'u', 'v', 
-        'w', 'x', 'y', 'z',' ',':','"','<','>','?'};
-        std::random_shuffle(&to_shuffle[0],&to_shuffle[31]);
+keyboard::keyboard(){
+    //array to be shuffled
+    char to_shuffle[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s', 't', 'u', 'v', 
+    'w', 'x', 'y', 'z',' ',':','"','<','>','?'};
+    std::random_shuffle(&to_shuffle[0],&to_shuffle[31]);
 
-        //adding charcters  and distances to board
-        for (int i = 0; i<32 ; i++){
+    //adding charcters  and distances to board
+    for (int i = 0; i<32 ; i++){
 
-            //setting charcters on board
-            board[i].charcter = to_shuffle[i];
+        //setting charcters on board
+        board[i].charcter = to_shuffle[i];
 
-            //setting startDistances
-            if (i <= 3 || (i >= 6 && i<= 9))
-                board[i].startDist = 92;
-            if (i == 4 || i == 10)
-                board[i].startDist = 100;
-            if (i == 5)
-                board[i].startDist = 150;
-            if ((i >= 11 && i <= 14) || (i >= 17 && i<= 20))
-                board[i].startDist = 0;
-            if ((i >= 15 && i <= 16) || (i == 21))
-                board[i].startDist = 90;
-            if ((i >= 22 && i <= 25) || (i >= 27 && i<= 31))
-                board[i].startDist = 97;               
-            if (i == 26)
-                board[i].startDist = 155;
+        //setting startDistances
+        if (i <= 3 || (i >= 6 && i<= 9))
+            board[i].startDist = 92;
+        if (i == 4 || i == 10)
+            board[i].startDist = 100;
+        if (i == 5)
+            board[i].startDist = 150;
+        if ((i >= 11 && i <= 14) || (i >= 17 && i<= 20))
+            board[i].startDist = 0;
+        if ((i >= 15 && i <= 16) || (i == 21))
+            board[i].startDist = 90;
+        if ((i >= 22 && i <= 25) || (i >= 27 && i<= 31))
+            board[i].startDist = 97;               
+        if (i == 26)
+            board[i].startDist = 155;
 
-            //setting adj matrices and alt distances
-            if (i == 3){
-                board[i].adjList = {board[4],board[15],NULL,NULL};
-                board[i].altdist = {90, 170, 1000, 1000};
-            }
-             if (i == 4){
-                board[i].adjList = {board[3],board[15],NULL,NULL};
-                board[i].altdist = {90, 92, 1000, 1000;
-            }
-             if (i ==5){
-                board[i].adjList = {board[6],board[16],NULL,NULL};
-                board[i].altdist = {90, 92, 1000, 1000};
-            }
-             if (i == 6){
-                board[i].adjList = {board[5],board[16],NULL,NULL};
-                board[i].altdist = {90, 150, 1000, 1000};
-            }
-             if (i == 15){
-                board[i].adjList = {board[3],board[4],board[25],board[26]};
-                board[i].altdist = {170, 92, 97, 97};
-            }
-             if (i == 16){
-                board[i].adjList = {board[5],board[6],board[27]};
-                board[i].altdist = {92, 150, 97, NULL};               
-            }
-             if (i == 25){
-                board[i].adjList = {board[15],board[26], NULL, NULL};
-                board[i].altdist = {97, 90};
-            }
-             if (i == 26){
-                board[i].adjList = {board[15],board[25], NULL, NULL};
-                board[i].altdist = {97, 90};
-                                
-            }
-             if (i == 27){
-                board[i].adjList = {board[16],board[26], NULL, NULL};
-                board[i].altdist = {97, 90};
-            }
+        //setting adj matrices and alt distances
+        if (i == 3){
+            board[i].adjList[0] = &board[4];
+            board[i].adjList[1] = &board[15];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
 
+            board[i].altdist[0] = 90;
+            board[i].altdist[1] = 170;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+            
+        }
+         if (i == 4){
+            board[i].adjList[0] = &board[3];
+            board[i].adjList[1] = &board[15];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 90;
+            board[i].altdist[1] = 92;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+        }
+         if (i ==5){
+            board[i].adjList[0] = &board[6];
+            board[i].adjList[1] = &board[16];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 90;
+            board[i].altdist[1] = 92;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+        }
+         if (i == 6){
+            board[i].adjList[0] = &board[5];
+            board[i].adjList[1] = &board[16];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 90;
+            board[i].altdist[1] = 150;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+        }
+         if (i == 15){
+            board[i].adjList[0] = &board[3];
+            board[i].adjList[1] = &board[4];
+            board[i].adjList[2] = &board[25];
+            board[i].adjList[0] = &board[26];
+
+            board[i].altdist[0] = 170;
+            board[i].altdist[1] = 92;
+            board[i].altdist[2] = 97;
+            board[i].altdist[3] = 97;
+        }
+         if (i == 16){
+            board[i].adjList[0] = &board[5];
+            board[i].adjList[1] = &board[6];
+            board[i].adjList[2] = &board[27];
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 92;
+            board[i].altdist[1] = 150;
+            board[i].altdist[2] = 97;
+            board[i].altdist[3] = 1000;             
+        }
+         if (i == 25){
+            board[i].adjList[0] = &board[15];
+            board[i].adjList[1] = &board[26];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 97;
+            board[i].altdist[1] = 90;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+        }
+         if (i == 26){
+            board[i].adjList[0] = &board[15];
+            board[i].adjList[1] = &board[25];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 97;
+            board[i].altdist[1] = 90;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
+        }
+         if (i == 27){
+            board[i].adjList[0] = &board[16];
+            board[i].adjList[1] = &board[26];
+            board[i].adjList[2] = NULL;
+            board[i].adjList[0] = NULL;
+
+            board[i].altdist[0] = 97;
+            board[i].altdist[1] = 90;
+            board[i].altdist[2] = 1000;
+            board[i].altdist[3] = 1000;
         }
     }
-};
+}
 
 
 // a class for fingers. We can store:
@@ -151,11 +212,11 @@ middle::middle(){
     str = 4;
     pressCount = 0;
 }
-class index : public finger{
+class Index : public finger{
     public:
-        index();
+        Index();
 };
-index::index(){
+Index::Index(){
     str = 4;
     pressCount = 0;
 }
@@ -171,8 +232,8 @@ class hands{
     ring lr;
     middle rm;
     middle lm;
-    index ri;
-    index li;
+    Index ri;
+    Index li;
 
 
     // The constructor of hands requires a keyboard, to set positions on.
@@ -180,13 +241,13 @@ class hands{
 
         //set position of finger by taking instance of keyboard object, getting board and then finding
         //spot in array.
-        rp.setPos(instance.board[20])
-        lp.setPos(instance.board[11])
-        rr.setPos(instance.board[19])
-        lr.setPos(instance.board[12])
-        rm.setPos(instance.board[18])
-        lm.setPos(instance.board[13])
-        ri.setPos(instance.board[17])
-        li.setPos(instance.board[14])
+        rp.setPos(instance.board[20]);
+        lp.setPos(instance.board[11]);
+        rr.setPos(instance.board[19]);
+        lr.setPos(instance.board[12]);
+        rm.setPos(instance.board[18]);
+        lm.setPos(instance.board[13]);
+        ri.setPos(instance.board[17]);
+        li.setPos(instance.board[14]);
     }
 };
