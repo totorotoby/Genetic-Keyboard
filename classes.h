@@ -7,9 +7,8 @@ class key{
 
     public:
     char charcter;
-    int  startDist;
-    key *adjList[4];
-    int altdist[4];
+    key *adjList[5] = {NULL,NULL,NULL,NULL,NULL};
+    int adjdist[5] = {100000,100000,100000,100000,100000};
     //...more maybe
 
 };
@@ -39,123 +38,187 @@ keyboard::keyboard(){
         //setting charcters on board
         board[i].charcter = to_shuffle[i];
 
-        //setting startDistances
-        if (i <= 3 || (i >= 6 && i<= 9))
-            board[i].startDist = 92;
-        if (i == 4 || i == 10)
-            board[i].startDist = 100;
-        if (i == 5)
-            board[i].startDist = 150;
-        if ((i >= 11 && i <= 14) || (i >= 17 && i<= 20))
-            board[i].startDist = 0;
-        if ((i >= 15 && i <= 16) || (i == 21))
-            board[i].startDist = 90;
-        if ((i >= 22 && i <= 25) || (i >= 27 && i<= 31))
-            board[i].startDist = 97;               
-        if (i == 26)
-            board[i].startDist = 155;
-
-        //setting adj matrices and alt distances
-        if (i == 3){
+        //setting adj matrices and adj distances for all graphs that are in keyboard
+    if (i == 3){
             board[i].adjList[0] = &board[4];
-            board[i].adjList[1] = &board[15];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
-
-            board[i].altdist[0] = 90;
-            board[i].altdist[1] = 170;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjList[1] = &board[14];
+            board[i].adjList[2] = &board[15];
+            
+            board[i].adjdist[0] = 90;
+            board[i].adjdist[1] = 92;
+            board[i].adjdist[2] = 170;
+            
             
         }
-         if (i == 4){
+        if (i == 4){
             board[i].adjList[0] = &board[3];
-            board[i].adjList[1] = &board[15];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
+            board[i].adjList[1] = &board[14];
+            board[i].adjList[2] = &board[15];
 
-            board[i].altdist[0] = 90;
-            board[i].altdist[1] = 92;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjdist[0] = 90;
+            board[i].adjdist[1] = 120;
+            board[i].adjdist[2] = 92;
+            
         }
-         if (i ==5){
+        if (i ==5){
             board[i].adjList[0] = &board[6];
             board[i].adjList[1] = &board[16];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
+            board[i].adjList[2] = &board[17];
 
-            board[i].altdist[0] = 90;
-            board[i].altdist[1] = 92;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjdist[0] = 90;
+            board[i].adjdist[1] = 92;
+            board[i].adjdist[2] = 150;
+            
         }
-         if (i == 6){
+        if (i == 6){
             board[i].adjList[0] = &board[5];
             board[i].adjList[1] = &board[16];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
+            board[i].adjList[2] = &board[17];
 
-            board[i].altdist[0] = 90;
-            board[i].altdist[1] = 150;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjdist[0] = 90;
+            board[i].adjdist[1] = 120;
+            board[i].adjdist[2] = 92;
+            
         }
-         if (i == 15){
+
+        if (i == 14){
             board[i].adjList[0] = &board[3];
             board[i].adjList[1] = &board[4];
-            board[i].adjList[2] = &board[25];
-            board[i].adjList[0] = &board[26];
+            board[i].adjList[2] = &board[15];
+            board[i].adjList[3] = &board[25];
+            board[i].adjList[4] = &board[26];
 
-            board[i].altdist[0] = 170;
-            board[i].altdist[1] = 92;
-            board[i].altdist[2] = 97;
-            board[i].altdist[3] = 97;
+            board[i].adjdist[0] = 92;
+            board[i].adjdist[1] = 120;
+            board[i].adjdist[2] = 90;
+            board[i].adjdist[3] = 97;
+            board[i].adjdist[4] = 97;
+
+
         }
-         if (i == 16){
+
+        if (i == 15){
+            board[i].adjList[0] = &board[3];
+            board[i].adjList[1] = &board[4];
+            board[i].adjList[2] = &board[14];
+            board[i].adjList[3] = &board[25];
+            board[i].adjList[4] = &board[26];
+
+            board[i].adjdist[0] = 170;
+            board[i].adjdist[1] = 92;
+            board[i].adjdist[2] = 90;
+            board[i].adjdist[3] = 97;
+            board[i].adjdist[4] = 97;
+        }
+        if (i == 16){
             board[i].adjList[0] = &board[5];
             board[i].adjList[1] = &board[6];
-            board[i].adjList[2] = &board[27];
-            board[i].adjList[0] = NULL;
+            board[i].adjList[2] = &board[17];
+            board[i].adjList[3] = &board[27];
+            board[i].adjList[4] = &board[28];
 
-            board[i].altdist[0] = 92;
-            board[i].altdist[1] = 150;
-            board[i].altdist[2] = 97;
-            board[i].altdist[3] = 1000;             
+            board[i].adjdist[0] = 92;
+            board[i].adjdist[1] = 120;
+            board[i].adjdist[2] = 90;
+            board[i].adjdist[3] = 97; 
+            board[i].adjdist[4] = 170;            
         }
-         if (i == 25){
-            board[i].adjList[0] = &board[15];
-            board[i].adjList[1] = &board[26];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
 
-            board[i].altdist[0] = 97;
-            board[i].altdist[1] = 90;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
-        }
-         if (i == 26){
-            board[i].adjList[0] = &board[15];
-            board[i].adjList[1] = &board[25];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
+        if (i == 17){
 
-            board[i].altdist[0] = 97;
-            board[i].altdist[1] = 90;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjList[0] = &board[5];
+            board[i].adjList[1] = &board[6];
+            board[i].adjList[2] = &board[16];
+            board[i].adjList[3] = &board[27];
+            board[i].adjList[4] = &board[28];
+
+            board[i].adjdist[0] = 150;
+            board[i].adjdist[1] = 92;
+            board[i].adjdist[2] = 90;
+            board[i].adjdist[3] = 97; 
+            board[i].adjdist[4] = 97;
+
+
+
         }
-         if (i == 27){
+
+        if (i == 25){
+            board[i].adjList[0] = &board[14];
+            board[i].adjList[1] = &board[15];
+            board[i].adjList[2] = &board[26];
+
+            board[i].adjdist[0] = 97;
+            board[i].adjdist[1] = 97;
+            board[i].adjdist[2] = 90;
+            
+        }
+        if (i == 26){
+            board[i].adjList[0] = &board[14];
+            board[i].adjList[1] = &board[15];
+            board[i].adjList[2] = &board[25];
+
+
+            board[i].adjdist[0] = 170;
+            board[i].adjdist[1] = 97;
+            board[i].adjdist[2] = 90;
+            
+        }
+        if (i == 27){
             board[i].adjList[0] = &board[16];
-            board[i].adjList[1] = &board[26];
-            board[i].adjList[2] = NULL;
-            board[i].adjList[0] = NULL;
+            board[i].adjList[1] = &board[17];
+            board[i].adjList[2] = &board[28];
 
-            board[i].altdist[0] = 97;
-            board[i].altdist[1] = 90;
-            board[i].altdist[2] = 1000;
-            board[i].altdist[3] = 1000;
+            board[i].adjdist[0] = 97;
+            board[i].adjdist[1] = 97;
+            board[i].adjdist[2] = 90;
+            
         }
+
+        if (i == 28){
+
+            board[i].adjList[0] = &board[16];
+            board[i].adjList[1] = &board[17];
+            board[i].adjList[2] = &board[27];
+
+            board[i].adjdist[0] = 170;
+            board[i].adjdist[1] = 92;
+            board[i].adjdist[2] = 90;
+            
+
+        }
+
+
+
+        if (i >= 11 && i <= 13){
+            board[i].adjList[0] = &board[0 + (i-11)];
+            board[i].adjList[1] = &board[22 + (i-11)];
+
+            board[i].adjdist[0] = 92;
+            board[i].adjdist[1] = 97;
+            
+        }
+        if (i >= 18 && i <= 20){
+            board[i].adjList[0] = &board[7 + (i-18)];
+            board[i].adjList[1] = &board[29 + (i-18)];
+
+            board[i].adjdist[0] = 92;
+            board[i].adjdist[1] = 97;
+        }
+
+        if (i == 20){
+
+            board[i].adjList[2] = &board[21];
+            board[i].adjList[3] = &board[10];
+            board[i].adjdist[2] = 90;
+            board[i].adjdist[3] = 92;
+        }
+
+
+
+
+
+
+
     }
 }
 
