@@ -97,12 +97,6 @@ int sgetDistance(char ch, keyboard *instance){
 	return -1;
 }
 
-int cgetDistance(char ch, finger fing, keyboard instance){
-
-
-
-}
-
 int getFingerNum(int index){
 
 	if (i%11 == 0)
@@ -135,6 +129,73 @@ int getStr(int FingNum){
 	return strarray[FingNum];
 }
 
+int cgetDistance(char ch, finger *fing, keyboard *instance){
+
+	key *lastVisted = NULL;
+	dijk_pair vertices[6];
+
+	if (fing->name == 1){
+		vertices[0].vertex = instance.board[3];
+		vertices[1].vertex = instance.board[4];
+		vertices[2].vertex = instance.board[14];
+		vertices[3].vertex = instance.board[15];
+		vertices[4].vertex = instance.board[25];
+		vertices[5].vertex = instance.board[26];
+
+		vertices[0].distto = 1000;
+		vertices[1].distto = 1000;
+		vertices[2].distto = 1000;
+		vertices[3].distto = 1000;
+		vertices[4].distto = 1000;
+		vertices[5].distto = 1000;
+
+	}
+
+	if (fing->name == 2){
+		vertices[0].vertex = instance.board[5];
+		vertices[1].vertex = instance.board[6];
+		vertices[2].vertex = instance.board[16];
+		vertices[3].vertex = instance.board[17];
+		vertices[4].vertex = instance.board[27];
+		vertices[5].vertex = instance.board[28];
+
+		vertices[0].distto = 1000;
+		vertices[1].distto = 1000;
+		vertices[2].distto = 1000;
+		vertices[3].distto = 1000;
+		vertices[4].distto = 1000;
+		vertices[5].distto = 1000;
+
+	}
+
+	if (fing->name == 2){
+		vertices[0].vertex = instance.board[9];
+		vertices[1].vertex = instance.board[10];
+		vertices[2].vertex = instance.board[20];
+		vertices[3].vertex = instance.board[21];
+		vertices[4].vertex = instance.board[31];
+		vertices[5].vertex = NULL;
+
+		vertices[0].distto = 1000;
+		vertices[1].distto = 1000;
+		vertices[2].distto = 1000;
+		vertices[3].distto = 1000;
+		vertices[4].distto = 1000;
+		vertices[5].distto = 1000;
+
+	}
+
+	key *start = fing->curPosition;
+
+	while (lastVisted->charcter != ch){
+
+
+
+		
+	}
+
+
+}
 
 
 int main(){
