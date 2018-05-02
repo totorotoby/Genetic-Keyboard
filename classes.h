@@ -298,95 +298,35 @@ keyboard::keyboard(){
     }
 }
 
-
 // a class for fingers. We can store:
-// (1)there position (what key they are on)
-// (2)There strength
-// (3)Times it has been used
+// (1)there position (what key they are on), so that we solve graph problems
 // more...
 class finger{
 
     public:
-        key curPosition;
-        int str;
-        int pressCount;
+        key *curPosition;
 
 
-    void setPos(key pos){
+    void setPos(key *pos){
         curPosition = pos;
     }
-    void keyTouch(){
-        pressCount++;
-    }
 
 };
 
-//all types of fingers inherate the finger class, and have different strengths. 
-//(This is kinda bulky, but I don't know any other way to do it)
-//Once we have a keyboard object we can make 2 of each call set position on each of them
-// to the starting "asdfjkl;" position, and then start typing
-
-class pinky : public finger{
-
-    public:
-        pinky();
-};
-pinky::pinky(){
-    str = 1; 
-    pressCount = 0;
-}
-class ring : public finger{
-    public:
-        ring();
-};
-ring::ring(){
-    str = 2;
-    pressCount = 0; 
-}
-class middle : public finger{
-    public:
-        middle();
-};
-middle::middle(){
-    str = 4;
-    pressCount = 0;
-}
-class Index : public finger{
-    public:
-        Index();
-};
-Index::Index(){
-    str = 4;
-    pressCount = 0;
-}
-
-
-
-//class that has all of the fingers
+//class that has all of the fingers where we need to save postion
 class hands{
 
-    pinky rp;
-    pinky lp;
-    ring rr;
-    ring lr;
-    middle rm;
-    middle lm;
-    Index ri;
-    Index li;
-
+         finger r_index;
+         finger l_index;
+         finger r_pinky;
 
     // The constructor of hands requires a keyboard, to set positions on.
     hands(keyboard instance){
 
         //set position of finger by taking instance of keyboard object, getting board and then finding
         //spot in array.
-        rp.setPos(instance.board[20]);
-        lp.setPos(instance.board[11]);
-        rr.setPos(instance.board[19]);
-        lr.setPos(instance.board[12]);
-        rm.setPos(instance.board[18]);
-        lm.setPos(instance.board[13]);
-        ri.setPos(instance.board[17]);
-        li.setPos(instance.board[14]);
+        r_index.setPos(instance.board[17]);
+        l_index.setPos(instance.board[14]);
+        r_pinky.setPos(instance.board[20]);
     }
 };
