@@ -20,7 +20,17 @@ int getStr(int FingNum);
 void disttoAdj(key *curNode, dijk_pair vertices[6]);
 int findIndexinverts(key *node);
 int dijkDone(dijk_pair vertices[6]);
-finger *getFinger(int index, hands *ihands);
+finger getFinger(int index, hands *ihands);
+
+
+string readText(string filename){
+
+	std::ifstream ifs(filename);
+	std::stringstream file;
+	file << ifs.rdbuf();
+	return file.str();	
+
+}
 
 int simple_index[18] = {0,1,2,11,12,13,22,23,24,7,8,18,19,29,30};
 int basic_index[8] = {11,12,13,14,17,18,19,20};

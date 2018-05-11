@@ -304,29 +304,41 @@ keyboard::keyboard(){
 class finger{
 
     public:
+        int name;
         key *curPosition;
 
-
-    void setPos(key *pos){
-        curPosition = pos;
-    }
-
+        
 };
+
+
 
 //class that has all of the fingers where we need to save postion
 class hands{
+    public:
+        finger r_index;
+        finger l_index;
+        finger r_pinky;
 
-         finger r_index;
-         finger l_index;
-         finger r_pinky;
-
-    // The constructor of hands requires a keyboard, to set positions on.
-    hands(keyboard instance){
-
-        //set position of finger by taking instance of keyboard object, getting board and then finding
-        //spot in array.
-        r_index.setPos(instance.board[17]);
-        l_index.setPos(instance.board[14]);
-        r_pinky.setPos(instance.board[20]);
-    }
+        // The constructor of hands requires a keyboard, to set positions on.
+        hands(keyboard *instance){
+            //set position of finger by taking instance of keyboard object, getting board and then finding
+            //spot in array.
+            r_index.curPosition = &instance->board[17];
+            l_index.curPosition = &instance->board[14];
+            r_pinky.curPosition = &instance->board[20];
+            l_index.name = 4;
+            r_index.name = 5;
+            r_pinky.name = 8;
+        }
 };
+
+
+
+
+typedef struct{
+    int distto;
+    key *vertex;
+} dijk_pair;
+
+
+
