@@ -2,56 +2,67 @@
 and functions that deal with the text we will be using*/
 
 #include "fitness.h"
-/*
 
 //ALGORTHIM FOR FINDING FITNESS FOR A SINGLE KEYBOARD
 //*******************************************************************************************************************
 //*******************************************************************************************************************
 
 
-int getFitness(string text, keyboard *instance, hands *iHands){
+void keyboard::setFitness(std::string text){
 
-	int fitness = 0;
+	int fit = 0;
+	hands *iHands = new hands(this);
 	for (int i = 0; i < text.length(); i++){
-		int strPenalty;
-		int distance;
-		int repPenalty;
-		int keyindex = getLocation(text[i], instance);
+
+		int strPenalty = 0;
+		int repPenalty = 0;
+		int handPenalty = 0;
+		int distance = 0;
+
+
+		int keyindex = getLocation(text[i], this);
 		int fingNum = getFingerNum(keyindex);
 
-		if (inbasic(i)){
+		if (inbasic(keyindex)){
 		
 			//ignore distance
 			//add finger rep penalty
 			repPenalty = getFingCount(fingNum);
-			//str pentaly
 			strPenalty = getStr(fingNum);
+			handPenalty = getHandpen(fingNum);
 		}
 
-		if (insimple(i)){
+		if (insimple(keyindex)){
 		
-			//add distance
-			distance = sgetDistance(text[i], instance);
-			//add finger penalty
+			distance = sgetDistance(text[i], this);
 			repPenalty = getFingCount(fingNum);
-			//add str penalty
 			strPenalty = getStr(fingNum);
+			handPenalty = getHandpen(fingNum);
 		}
 		//complex case
 		else{
 			//add distance to new key more complicated
 			//finding finger
-			finger *fing = getFinger(fingNum, ihands);
+			finger fing = getFinger(fingNum, iHands);
 			//finding distance depending on graph we are dealing with
-			distance  = cgetDistance(text[i], fing, instance);
+			distance  = cgetDistance(text[i], fing, this);
+			fing.curPosition = &this->board[keyindex];
 			//add finger penalty
 			repPenalty = getFingCount(fingNum);
 			//add str penalty
 			strPenalty = getStr(fingNum);
+			//add hand pen
+			handPenalty = getHandpen(fingNum);
+
 		}
+
+		fit += distance + strPenalty + repPenalty + handPenalty;
 	}
+
+	
+
+	fitness = fit;
 }
-*/
 
 //HELPERS TO FIND EVERYTHING WE NEED FOR A SINGLE CHARCTER MINUS DIJKSTRAS
 //*******************************************************************************************************************
@@ -89,7 +100,6 @@ int inbasic(int i){
 
 int sgetDistance(char ch, keyboard *instance){
 
-	cout << ch << endl;
 	for (int i = 0; i < sizeof(instance->board)/sizeof(instance->board[0]); i++){
 		
 		for (int j = 0; j < sizeof(instance->board[i].adjList)/sizeof(instance->board[i].adjList[0]); j++){
@@ -133,8 +143,9 @@ finger getFinger(int fing_num, hands *ihands){
 		return ihands -> l_index;
 	if (fing_num == 5)
 		return ihands -> r_index;
-	if (fing_num == 8)
+	else
 		return ihands -> r_pinky;
+	
 }
 
 
@@ -144,12 +155,41 @@ pressarray[FingNum] += 5;
 }
 
 int getFingCount(int FingNum){
+	if (prevFingNum == FingNum)
+		incrFingCount(FingNum);
+	else
+		pressarray[FingNum] = 0;
+
+	prevFingNum = FingNum;
+
 	return pressarray[FingNum];
 }
 
 int getStr(int FingNum){
 	return strarray[FingNum];
 }
+
+int getHandpen(int fingNum){
+
+	lastHand = currHand;
+
+
+	if (fingNum < 5)
+		currHand = -1;
+
+	if (fingNum >= 5)
+		currHand = 1;
+
+
+	if (currHand == lastHand && (currHand != 0))
+		handPen += 3;
+
+	if (currHand != lastHand)
+		handPen = 0;
+
+	return handPen;
+}
+
 
 
 
@@ -212,6 +252,7 @@ dijk_pair *setCheckArray(finger fing, keyboard *instance){
 
 	}
 
+	return vertices;
 
 }
 
@@ -243,7 +284,7 @@ int findIndexinverts(key *node, dijk_pair vertices[6]){
 
 
 //finds all distances from current not to its neighbors
-void disttoAdj(key *curNode, dijk_pair vertices[6]){
+void disttoAdj(key *current, int adjIndex, dijk_pair *vertices){
 
 	int distToCur;
 	int newDist = 1000;
@@ -251,23 +292,20 @@ void disttoAdj(key *curNode, dijk_pair vertices[6]){
 
 	//finding distance to current node, that new distance will be added to.
 	for (int i = 0; i < 6 ; i++){
-		if (curNode == vertices[i].vertex)
+		if (current == vertices[i].vertex)
 			distToCur = vertices[i].distto;
 	}
+	
+	
+	newDist = distToCur + current->adjdist[adjIndex];
 
-	for (int j = 0; j < 5 ; j++){
 
-		//proposed new distance
-		if (curNode->adjdist[j] != 1000){
 
-		newDist = distToCur + curNode->adjdist[j];
-		vertIndex = findIndexinverts(curNode->adjList[j], vertices);
+	vertIndex = findIndexinverts(current->adjList[adjIndex], vertices);
 
-	}
 
-		// set new distance if newDist is less then vertices[vertIndex].distto
-		if (newDist < vertices[vertIndex].distto)
-			vertices[vertIndex].distto = newDist;
+	if (newDist < vertices[vertIndex].distto){
+		vertices[vertIndex].distto = newDist;
 	}
 }
 
@@ -278,8 +316,10 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 	//setting up array to keep track of distances
 	dijk_pair *vertices;
 	int vertdestindex;
+	
 
 
+	//sets the array of keys that we have to check before dikjstras is done
 	vertices = setCheckArray(fing, instance);
 
 
@@ -290,32 +330,52 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 		if ( ch == vertices[k].vertex->charcter)
 			vertdestindex = k;
 	}
-	cout << vertdestindex << endl;
-}
+
 	//==========================================================================================
 
-		/*
 
-	key *current = fing->curPosition;
-	int sourceindex = findIndexinverts(current);
-	vertices[indexcur].distto = 0;
+	key *current = fing.curPosition;
 
-	while (!dijkDone(vertices)){
+	int sourceindex = findIndexinverts(current, vertices);
+	
+	vertices[sourceindex].distto = 0;
 
-		for (int i = 0; i < 5 ; i++){
-			if (current.adjList[i] != NULL){
-				disttoAdj(current.adjList[i], vertices)
+	getAdjdistances(current, vertices);
+	for (int j = 0 ; j < 2 ; j++){
+		for (int i = 0 ; i < 5 ; i++){
+			if (current->adjList[i] != NULL){
+				current = current -> adjList[i];
+				
+				getAdjdistances(current, vertices);
 			}
 		}
 	}
 	
-}
-
-return vertices[k].distto;
-
+	return vertices[vertdestindex].distto;
 
 }
-*/
+
+
+void printShortestDist(key *current, dijk_pair *vertices){
+
+	cout << "we are at key: " << current->charcter << endl;
+
+	for (int i = 0 ; i < 6 ; i++){
+		cout << "distance to charcter " << vertices[i].vertex->charcter << " is " << vertices[i].distto << endl;
+	}
+
+}
+
+void getAdjdistances(key *current, dijk_pair *vertices){
+
+	for (int i = 0 ; i < 5 ; i++){
+		if (current->adjList[i] != NULL){
+			disttoAdj(current, i, vertices);
+		}
+	}
+}
+
+
 //*******************************************************************************************************************
 //*******************************************************************************************************************
 
@@ -328,17 +388,17 @@ int main(){
 	
 
 	keyboard *keyboard_inst = new keyboard();
+	keyboard_inst->setFitness(text);
+	keyboard_inst->printBoard();
 
-	//cout << keyboard_inst -> board[17].adjList[0]->charcter << endl;
-	//cout << keyboard_inst -> board[17].adjList[1]->charcter << endl;
+	cout << keyboard_inst->fitness << endl;
 
-	hands *hand_inst = new hands(keyboard_inst);
+	keyboard *keyboard_inst2 = new keyboard();
+	keyboard_inst2->setFitness(text);
+	keyboard_inst2->printBoard();
 
-	int index = getLocation(text[0], keyboard_inst);
-	int finger_number = getFingerNum(index);
-	finger fing = getFinger(finger_number, hand_inst);
-	int distance = cgetDistance(text[0], fing, keyboard_inst);
+	cout << keyboard_inst2->fitness << endl;
 
-	//cout << distance << endl;
+
 
 }

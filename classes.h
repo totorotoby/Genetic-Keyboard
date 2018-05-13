@@ -1,7 +1,12 @@
 #include <algorithm>
 #include <random>
+#include <iostream>
+using namespace std;
 
 
+class hands;
+class keyboard;
+class key;
 
 
 
@@ -22,18 +27,20 @@ class keyboard {
     public:
     //keyboard array 
     key board[32]; 
-    double fitness;
+    int fitness;
     keyboard();
+    void printBoard();
+    void setFitness(string text);
 
 };
     
     //constructor
 keyboard::keyboard(){
     //array to be shuffled
-    char to_shuffle[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r','s', 't', 'u', 'v', 
-    'w', 'x', 'y', 'z',' ',':','"','<','>','?',' '};
-    //std::random_shuffle(&to_shuffle[0],&to_shuffle[31]);
+    char to_shuffle[] = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o',
+    'p', ' ', 'a', 's', 'd', 'f', 'g', 'h', 'j','k', 'l', ';', '"', 
+    'z', 'x', 'c', 'v','b','n','m','<','>','?'};
+    std::random_shuffle(&to_shuffle[0],&to_shuffle[31]);
 
     //adding charcters  and distances to board
     for (int i = 0; i<32 ; i++){
@@ -147,7 +154,7 @@ keyboard::keyboard(){
             board[i].adjdist[1] = 120;
             board[i].adjdist[2] = 90;
             board[i].adjdist[3] = 97;
-            board[i].adjdist[4] = 97;
+            board[i].adjdist[4] = 170;
 
 
         }
@@ -297,6 +304,25 @@ keyboard::keyboard(){
 
     }
 }
+
+
+void keyboard::printBoard(){
+
+    for (int i = 0 ; i<11 ; i++){
+        cout << board[i].charcter << "|" ;
+    }
+    cout << "\n";
+    for (int i = 11 ; i<22 ; i++){
+        cout << board[i].charcter << "|" ;
+    }
+    cout << "\n";
+    for (int i = 22 ; i<32 ; i++){
+        cout << board[i].charcter << "|" ;
+    }
+    cout << "\n";
+}
+
+
 
 // a class for fingers. We can store:
 // (1)there position (what key they are on), so that we solve graph problems
