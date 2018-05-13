@@ -166,7 +166,7 @@ int getFingCount(int FingNum){
 }
 
 int getStr(int FingNum){
-	return strarray[FingNum];
+	return strarray[FingNum - 1];
 }
 
 int getHandpen(int fingNum){

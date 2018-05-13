@@ -38,7 +38,7 @@ string readText(string filename){
 int simple_index[] = {0,1,2,11,12,13,22,23,24,7,8,18,19,29,30};
 int basic_index[] = {11,12,13,14,17,18,19,20};
 int pressarray[] = {0};
-int strarray[] = {50, 30, 15, 5, 5, 15, 30, 50};
+int strarray[] = {50, 20, 15, 5, 5, 15, 20, 50};
 int lastHand = 0;
 int currHand = 0;
 int handPen = 0;
