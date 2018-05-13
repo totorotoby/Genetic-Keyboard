@@ -13,11 +13,9 @@ int adjdist[5]     // adjdist[i] gives the distance from this particular key to 
 
 keyboard objects also have the function:
 
- setFitness(string text, keyboard *instance, hands *hand_instance)
+ setFitness(string text)
 
-text is the string that we are assessing the fitness on. So a book or something along those lines.
-instance is the pointer to the keyboard instance that we are trying to find the fitness of.
-hands_instance is a object to keep track of positions on for index fingers (If you are not Toby don't worry about this).
+text is the string that we assessing the fitness on.
 
 set fitness just turns instance.fitness to a integer that is not 0.
 
