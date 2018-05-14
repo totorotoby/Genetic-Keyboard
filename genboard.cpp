@@ -50,11 +50,60 @@ int main() {
     
     //Just using this file as a test
     string txt = readText("small-wordlist.txt");
-    //Compute fitness for each keyboard and the overall avg fitness
-    int avgfit = 0;
-    for (int i = 0; i<100; i++) {
-        pool[i]->setFitness(txt);
-        avgfit += pool[i]->fitness;
+    
+    //Get number of generations
+    int gen;
+    cout << "Enter number of generations: ";
+    cin >> gen;
+    cout << "\n";
+    
+    //Random Seed
+    srand(time(NULL));
+    int rnd, prev;
+    
+    //Pool for next generation
+    keyboard *nextGen[100];
+    
+    for (int i = 0; i < gen; i++) {
+        //Compute fitness for each keyboard and the overall avg fitness
+        int avgfit = 0;
+        for (int i = 0; i<100; i++) {
+            pool[i]->setFitness(txt);
+            avgfit += pool[i]->fitness;
+        }
+        avgfit /= 100;
+        
+        //Reset next generation
+        int nextGenSize = 0;
+        
+        //Breed 100 new offspring
+        while(nextGenSize != 100) {
+            //Select 2 parents
+            rnd = rand() % 100;
+            prev = rnd;
+            keyboard *p1 = pool[rnd];
+            //Avoid picking same parent twice
+            while(rnd == prev)
+                rnd = rand() % 100;
+            keyboard *p2 = pool[rnd];
+            
+            //Calculate crossover probability
+            int c1 = p1->fitness / avgfit;
+            int c2 = p2->fitness / avgfit;
+            int pc = (c1 * c2) * 100;
+            
+            //Breeding calculation
+            rnd = rand() % 100;
+            if (rnd < pc) {
+                //keyboard *offspring = breed(p1, p2);
+                //nextGen[nextGenSize] = mutate(offspring);
+                nextGenSize++;
+                cout << nextGenSize << "\n";
+            }
+        }
+        
+        for (int i = 0; i<100; i++) {
+            pool[i] = nextGen[i];
+        }
     }
-    avgfit /= 100;
 }
