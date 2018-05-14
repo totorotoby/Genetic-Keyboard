@@ -448,6 +448,3 @@ int main(){
 
 	cout << keyboard_inst2->fitness << endl;
 */
-
-
-}

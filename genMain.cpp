@@ -1,7 +1,4 @@
 /*Program to run genetic algorthim through*/
-#include <stdlib.h>
-#include "fitness.h"
-#include "fitness.cpp"
 #include "mutbreed.cpp"
 using namespace std;
 
