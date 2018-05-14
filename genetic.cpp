@@ -75,13 +75,13 @@ keyboard *mutate(keyboard *parent)
  *  Add graphs B, D, F and H of parent 2 to child keyboard                           *
  *  Traverse the child keyboard to find collisions                                   *
  *       keeping track of a running list of duplicated keys                          *
- *  Set collisions to NULL                                                           * 
+ *  Set every collisions to NULL                                                     * 
  *  Randomly fill in the NULL keys with missing keys from the running list           *
  *  return child keyboard                                                            *
  *                                                                                   *
  * Keyboard graph representation:                                                    *
  * Each Letter represents a graph                                                    *
- * Each Node represents the index on the board array                                 *
+ * Each Node represents the index from the board array                               *
  *                                                                                   *
  *                                                                                   * 
  *                                                                                   *
