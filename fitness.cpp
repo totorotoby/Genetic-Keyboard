@@ -380,7 +380,7 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 //*******************************************************************************************************************
 
 
-
+/**
 int main(){
 
 	string filename = "testfile";
@@ -402,3 +402,4 @@ int main(){
 
 
 }
+*/

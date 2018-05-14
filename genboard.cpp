@@ -1,8 +1,6 @@
 /*Program to run genetic algorthim through*/
 
-#include <iostream>
-#include <vector>
-#include "fitness.h"
+#include "fitness.cpp"
 using namespace std;
 
 /** This function is overloading the readText() function in fitness.h and throwing an error
@@ -58,4 +56,5 @@ int main() {
         pool[i]->setFitness(txt);
         avgfit += pool[i]->fitness;
     }
+    avgfit /= 100;
 }
