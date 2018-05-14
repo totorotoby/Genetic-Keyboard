@@ -126,28 +126,28 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
 
   // Add graphs B, D, F and H of parent 2 to child keyboard
   // B
-  child_kb->board[1] = keyboard1->board[1];
-  child_kb->board[12] = keyboard1->board[12];
+  child_kb->board[1] = keyboard2->board[1];
+  child_kb->board[12] = keyboard2->board[12];
 
   // D
-  child_kb->board[3] = keyboard1->board[3];
-  child_kb->board[4] = keyboard1->board[4];
-  child_kb->board[14] = keyboard1->board[14];
-  child_kb->board[15] = keyboard1->board[15];
-  child_kb->board[25] = keyboard1->board[25];
-  child_kb->board[26] = keyboard1->board[26];
+  child_kb->board[3] = keyboard2->board[3];
+  child_kb->board[4] = keyboard2->board[4];
+  child_kb->board[14] = keyboard2->board[14];
+  child_kb->board[15] = keyboard2->board[15];
+  child_kb->board[25] = keyboard2->board[25];
+  child_kb->board[26] = keyboard2->board[26];
 
   // F
-  child_kb->board[7] = keyboard1->board[7];
-  child_kb->board[18] = keyboard1->board[18];
-  child_kb->board[29] = keyboard1->board[29];
+  child_kb->board[7] = keyboard2->board[7];
+  child_kb->board[18] = keyboard2->board[18];
+  child_kb->board[29] = keyboard2->board[29];
 
   // H
-  child_kb->board[9] = keyboard1->board[9];
-  child_kb->board[10] = keyboard1->board[10];
-  child_kb->board[20] = keyboard1->board[20];
-  child_kb->board[21] = keyboard1->board[21];
-  child_kb->board[31] = keyboard1->board[31];
+  child_kb->board[9] = keyboard2->board[9];
+  child_kb->board[10] = keyboard2->board[10];
+  child_kb->board[20] = keyboard2->board[20];
+  child_kb->board[21] = keyboard2->board[21];
+  child_kb->board[31] = keyboard2->board[31];
 
   // traverse the child keyboard to find collisions
   key collisions[32];
