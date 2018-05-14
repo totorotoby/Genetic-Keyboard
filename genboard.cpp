@@ -49,13 +49,12 @@ int main() {
     }
     
     //Just using this file as a test
-    string txt = readText("small-wordlist.txt");
+    string txt = readText("testfile.txt");
     
     //Get number of generations
     int gen;
     cout << "Enter number of generations: ";
     cin >> gen;
-    cout << "\n";
     
     //Random Seed
     srand(time(NULL));
@@ -65,13 +64,20 @@ int main() {
     keyboard *nextGen[100];
     
     for (int i = 0; i < gen; i++) {
+        //DEBUG FLAG
+        //cout << i << " generation\n";
+        
         //Compute fitness for each keyboard and the overall avg fitness
         int avgfit = 0;
-        for (int i = 0; i<100; i++) {
-            pool[i]->setFitness(txt);
-            avgfit += pool[i]->fitness;
+        for (int j = 0; j<100; j++) {
+            pool[j]->setFitness(txt);
+            //DEBUG FLAG
+            //cout << j << " fitness: " << pool[j]->fitness << "\n";
+            avgfit = avgfit + pool[j]->fitness;
         }
-        avgfit /= 100;
+        avgfit = avgfit/100;
+        //DEBUG FLAG
+        //cout << "avgfit: " << avgfit << "\n";
         
         //Reset next generation
         int nextGenSize = 0;
@@ -95,15 +101,17 @@ int main() {
             //Breeding calculation
             rnd = rand() % 100;
             if (rnd < pc) {
-                //keyboard *offspring = breed(p1, p2);
-                //nextGen[nextGenSize] = mutate(offspring);
+                keyboard *offspring = breed(p1, p2);
+                nextGen[nextGenSize] = mutate(offspring);
                 nextGenSize++;
-                cout << nextGenSize << "\n";
+                //DEBUG FLAG
+                //cout << nextGenSize << " offspring\n";
             }
         }
         
-        for (int i = 0; i<100; i++) {
-            pool[i] = nextGen[i];
+        //Make new generation the parent pool
+        for (int k = 0; k<100; k++) {
+            pool[k] = nextGen[k];
         }
     }
 }
