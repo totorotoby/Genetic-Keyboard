@@ -160,33 +160,3 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   }
   return child_kb;
 }
-
-int main(){
-
-  keyboard *newinst1 = new keyboard();
-  keyboard *newinst2 = new keyboard();
-  cout << "newinst1: " << endl;
-  newinst1->printBoard();
-   cout << "newinst2: " << endl;
-  newinst2->printBoard();
-  keyboard *child = breed(newinst1,newinst2);
-
-  cout << "child: " << endl;
-  child->printBoard();
-
-  keyboard *mutate1 = mutate(newinst1);
-
-  cout << "\n\n" << endl;
-  cout << "newinst1: " << endl;
-  newinst1->printBoard();
-
-  cout << "\n\n" << endl;
-  mutate1->printBoard();
-
-
-
-}
-
-
-
-
