@@ -64,56 +64,56 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   keyboard *child_kb = new keyboard();
   // Add graphs A, C, E and G of parent 1 to child keyboard
   // A
-  child_kb->board[0] = keyboard1->board[0];
-  child_kb->board[11] = keyboard1->board[11];
-  child_kb->board[22] = keyboard1->board[22];
+  child_kb->board[0]->charcter = keyboard1->board[0]->charcter;
+  child_kb->board[11]->charcter = keyboard1->board[11]->charcter;
+  child_kb->board[22]->charcter = keyboard1->board[22]->charcter;
 
   // C
-  child_kb->board[2] = keyboard1->board[2];
-  child_kb->board[13] = keyboard1->board[13];
-  child_kb->board[23] = keyboard1->board[23];
-  child_kb->board[24] = keyboard1->board[24];
+  child_kb->board[2]->charcter = keyboard1->board[2]->charcter;
+  child_kb->board[13]->charcter = keyboard1->board[13]->charcter;
+  child_kb->board[23]->charcter = keyboard1->board[23]->charcter;
+  child_kb->board[24]->charcter = keyboard1->board[24]->charcter;
 
   // E
-  child_kb->board[5] = keyboard1->board[5];
-  child_kb->board[6] = keyboard1->board[6];
-  child_kb->board[16] = keyboard1->board[16];
-  child_kb->board[17] = keyboard1->board[17];
-  child_kb->board[27] = keyboard1->board[28];
-  child_kb->board[28] = keyboard1->board[27];
+  child_kb->board[5]->charcter = keyboard1->board[5]->charcter;
+  child_kb->board[6]->charcter = keyboard1->board[6]->charcter;
+  child_kb->board[16]->charcter = keyboard1->board[16]->charcter;
+  child_kb->board[17]->charcter = keyboard1->board[17]->charcter;
+  child_kb->board[27]->charcter = keyboard1->board[28]->charcter;
+  child_kb->board[28]->charcter = keyboard1->board[27]->charcter;
 
   // G
-  child_kb->board[8] = keyboard1->board[8];
-  child_kb->board[19] = keyboard1->board[19];
-  child_kb->board[30] = keyboard1->board[30];
+  child_kb->board[8]->charcter = keyboard1->board[8]->charcter;
+  child_kb->board[19]->charcter = keyboard1->board[19]->charcter;
+  child_kb->board[30]->charcter = keyboard1->board[30]->charcter;
 
   // Add graphs B, D, F and H of parent 2 to child keyboard
   // B
-  child_kb->board[1] = keyboard2->board[1];
-  child_kb->board[12] = keyboard2->board[12];
+  child_kb->board[1]->charcter = keyboard2->board[1]->charcter;
+  child_kb->board[12]->charcter = keyboard2->board[12]->charcter;
 
   // D
-  child_kb->board[3] = keyboard2->board[3];
-  child_kb->board[4] = keyboard2->board[4];
-  child_kb->board[14] = keyboard2->board[14];
-  child_kb->board[15] = keyboard2->board[15];
-  child_kb->board[25] = keyboard2->board[25];
-  child_kb->board[26] = keyboard2->board[26];
+  child_kb->board[3]->charcter = keyboard2->board[3]->charcter;
+  child_kb->board[4]->charcter = keyboard2->board[4]->charcter;
+  child_kb->board[14]->charcter = keyboard2->board[14]->charcter;
+  child_kb->board[15]->charcter = keyboard2->board[15]->charcter;
+  child_kb->board[25]->charcter = keyboard2->board[25]->charcter;
+  child_kb->board[26]->charcter = keyboard2->board[26]->charcter;
 
   // F
-  child_kb->board[7] = keyboard2->board[7];
-  child_kb->board[18] = keyboard2->board[18];
-  child_kb->board[29] = keyboard2->board[29];
+  child_kb->board[7]->charcter = keyboard2->board[7]->charcter;
+  child_kb->board[18]->charcter = keyboard2->board[18]->charcter;
+  child_kb->board[29]->charcter = keyboard2->board[29]->charcter;
 
   // H
-  child_kb->board[9] = keyboard2->board[9];
-  child_kb->board[10] = keyboard2->board[10];
-  child_kb->board[20] = keyboard2->board[20];
-  child_kb->board[21] = keyboard2->board[21];
-  child_kb->board[31] = keyboard2->board[31];
+  child_kb->board[9]->charcter = keyboard2->board[9]->charcter;
+  child_kb->board[10]->charcter = keyboard2->board[10]->charcter;
+  child_kb->board[20]->charcter = keyboard2->board[20]->charcter;
+  child_kb->board[21]->charcter = keyboard2->board[21]->charcter;
+  child_kb->board[31]->charcter = keyboard2->board[31]->charcter;
 
   // traverse the child keyboard to find collisions
-  key collisions[32];
+  char collisions[32];
   int index = 0;
   for (int i = 0; i < 32; i++)
     {
@@ -122,7 +122,7 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
     if ( child_kb->board[i] == child_kb->board[j] )
       {
         collisions[index++]=child_kb->board[i];
-        child_kb->board[i] = "-1";
+        child_kb->board[i] = NULL;
       }
   }
     }
@@ -134,7 +134,7 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   {
       for ( int i = 0; i < 32; i++)
       {
-        if ( child_kb->board[i] == "-1" )
+        if ( child_kb->board[i] == NULL )
         {
           child_kb->board[i] = collisions[counter];
           counter--;
