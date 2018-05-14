@@ -66,7 +66,20 @@ keyboard *mutate(keyboard *parent)
   return new_kb;
 }
 
+/************************************************************************************ 
+ *  This function takes in two keyboards and breeds them returning a child keyboard *
+ *                                                                                  *
+ *  Breeding Algorithm:                                                             *  
+ *  Add every other graph of parent 1 to child keyboard                             *
+ *  Fill in the rest with parent 2 graphs                                           *
+ *  Traverse the child keyboard to find collisions                                  *
+ *       keeping track of a running list of non repeated keys                       *
+ *  Set collisions to NULL                                                          * 
+ *  Randomly fill in the NULL keys with missing keys from the running list          *
+ *  return child keyboard                                                           *
+ ************************************************************************************/
 keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
+  
   return keyboard1;
 }
 
