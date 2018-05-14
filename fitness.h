@@ -24,6 +24,9 @@ int dijkDone(dijk_pair vertices[6]);
 finger getFinger(int index, hands *ihands);
 void printShortestDist(key *current, dijk_pair *vertices);
 void getAdjdistances(key *current, dijk_pair *vertices);
+void resetGlobals();
+void delayCheck(hands *iHands, keyboard *instance);
+void delayReset(int fingNum);
 
 
 string readText(string filename){
@@ -35,11 +38,12 @@ string readText(string filename){
 
 }
 
-int simple_index[] = {0,1,2,11,12,13,22,23,24,7,8,18,19,29,30};
+int simple_index[] = {0,1,2,22,23,24,7,8,29, 30};
 int basic_index[] = {11,12,13,14,17,18,19,20};
 int pressarray[] = {0};
-int strarray[] = {50, 20, 15, 5, 5, 15, 20, 50};
+int strarray[] = {30, 20, 15, 5, 5, 15, 20, 30};
 int lastHand = 0;
 int currHand = 0;
 int handPen = 0;
-int prevFingNum = -1;
+int prevFingNum = 0;
+int indexDelay[] = {0,0};
