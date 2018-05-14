@@ -66,18 +66,36 @@ keyboard *mutate(keyboard *parent)
   return new_kb;
 }
 
-/************************************************************************************ 
- *  This function takes in two keyboards and breeds them returning a child keyboard *
- *                                                                                  *
- *  Breeding Algorithm:                                                             *  
- *  Add every other graph of parent 1 to child keyboard                             *
- *  Fill in the rest with parent 2 graphs                                           *
- *  Traverse the child keyboard to find collisions                                  *
- *       keeping track of a running list of non repeated keys                       *
- *  Set collisions to NULL                                                          * 
- *  Randomly fill in the NULL keys with missing keys from the running list          *
- *  return child keyboard                                                           *
- ************************************************************************************/
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *  This function takes in two keyboards and breeds them returning a child keyboard  *
+ *                                                                                   *
+ *  Breeding Algorithm: (See graph below for reference)                              *
+ *                                                                                   * 
+ *  Add graphs A, C, E and G of parent 1 to child keyboard                           *
+ *  Add graphs B, D, F and H of parent 2 to child keyboard                           *
+ *  Traverse the child keyboard to find collisions                                   *
+ *       keeping track of a running list of non repeated keys                        *
+ *  Set collisions to NULL                                                           * 
+ *  Randomly fill in the NULL keys with missing keys from the running list           *
+ *  return child keyboard                                                            *
+ *                                                                                   *
+ * Keyboard graph representation:                                                    *
+ * Each Letter represents the graph                                                  *
+ * Each Node represents the index on the board array                                 *
+ *                                                                                   *
+ *                                                                                   * 
+ *                                                                                   *
+ * A     B     C          D        E         F      G        H                       *
+ * 0     1     2        3 - 4     5 - 6      7      8      9 - 10                    *
+ * |     |     |        | X |     | X |      |      |      | X |                     *
+ * 11    12    13      14 - 15   16 - 17    18     19     20 - 21                    *
+ * |           / \      | X |     | X |      |      |      \   /                     *
+ * 22         23 24    25 - 26   27 - 28    29     30        31                      *
+ *                                                                                   *
+ *                                                                                   *
+ *                                                                                   *
+ *                                                                                   *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   
   return keyboard1;
