@@ -1,8 +1,6 @@
 /*Program to run genetic algorthim through*/
 
-#include <iostream>
-#include <vector>
-#include "fitness.h"
+#include "fitness.cpp"
 using namespace std;
 
 /** This function is overloading the readText() function in fitness.h and throwing an error
@@ -44,10 +42,10 @@ void rankBoards(keyboard *pool, string[5] texts){
 int main() {
     
     //Initialize keyboard pool
-    vector<keyboard*> pool;
+    keyboard *pool[100];
     for (int i = 0; i<100; i++) {
         keyboard *toadd = new keyboard();
-        pool.push_back(toadd);
+        pool[i] = toadd;
     }
     
     //Just using this file as a test
@@ -55,9 +53,8 @@ int main() {
     //Compute fitness for each keyboard and the overall avg fitness
     int avgfit = 0;
     for (int i = 0; i<100; i++) {
-        //hands *hand_inst = new hands(keyboard_inst);
-        //int currentFit = getFitness(txt, pool.at(i), hand_inst);
-        avgfit += currentFit;
-        pool.at(i)->fitness = currentFit;
+        pool[i]->setFitness(txt);
+        avgfit += pool[i]->fitness;
     }
+    avgfit /= 100;
 }
