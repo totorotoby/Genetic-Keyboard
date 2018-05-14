@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "fitness.h"
 using namespace std;
-/*
+/* Commented this for now for debugging
 string readText(string filename){
 
         std::ifstream ifs(filename);
@@ -74,7 +74,7 @@ keyboard *mutate(keyboard *parent)
  *  Add graphs A, C, E and G of parent 1 to child keyboard                           *
  *  Add graphs B, D, F and H of parent 2 to child keyboard                           *
  *  Traverse the child keyboard to find collisions                                   *
- *       keeping track of a running list of non repeated keys                        *
+ *       keeping track of a running list of duplicated keys                          *
  *  Set collisions to NULL                                                           * 
  *  Randomly fill in the NULL keys with missing keys from the running list           *
  *  return child keyboard                                                            *
@@ -97,8 +97,89 @@ keyboard *mutate(keyboard *parent)
  *                                                                                   *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
+  keyboard *child_kb = new keyboard();
+  // Add graphs A, C, E and G of parent 1 to child keyboard  
+  // A
+  child_kb->board[0] = keyboard1->board[0];
+  child_kb->board[11] = keyboard1->board[11];
+  child_kb->board[22] = keyboard1->board[22];
+
+  // C
+  child_kb->board[2] = keyboard1->board[2];
+  child_kb->board[13] = keyboard1->board[13];
+  child_kb->board[23] = keyboard1->board[23];
+  child_kb->board[24] = keyboard1->board[24];
+
+  // E
+  child_kb->board[5] = keyboard1->board[5];
+  child_kb->board[6] = keyboard1->board[6];
+  child_kb->board[16] = keyboard1->board[16];
+  child_kb->board[17] = keyboard1->board[17];
+  child_kb->board[27] = keyboard1->board[28];
+  child_kb->board[28] = keyboard1->board[27];
+
+  // G
+  child_kb->board[8] = keyboard1->board[8];
+  child_kb->board[19] = keyboard1->board[19];
+  child_kb->board[30] = keyboard1->board[30];
+
+  // Add graphs B, D, F and H of parent 2 to child keyboard  
+  // B
+  child_kb->board[1] = keyboard1->board[1];
+  child_kb->board[12] = keyboard1->board[12];
+
+  // D
+  child_kb->board[3] = keyboard1->board[3];
+  child_kb->board[4] = keyboard1->board[4];
+  child_kb->board[14] = keyboard1->board[14];
+  child_kb->board[15] = keyboard1->board[15];
+  child_kb->board[25] = keyboard1->board[25];
+  child_kb->board[26] = keyboard1->board[26];
+
+  // F
+  child_kb->board[7] = keyboard1->board[7];
+  child_kb->board[18] = keyboard1->board[18];
+  child_kb->board[29] = keyboard1->board[29];
+
+  // H
+  child_kb->board[9] = keyboard1->board[9];
+  child_kb->board[10] = keyboard1->board[10];
+  child_kb->board[20] = keyboard1->board[20];
+  child_kb->board[21] = keyboard1->board[21];
+  child_kb->board[31] = keyboard1->board[31];
+
+  // traverse the child keyboard to find collisions
+  key collisions[32];
+  int index = 0;
+  for (int i = 0; i < 32; i++)
+    {
+      for (int j = i + 1; j < 32; j++)
+	{
+	  if ( child_kb->board[i] == child_kb->board[j] )
+	    {
+	      collisions[index++]=child_kb->board[i];
+	      child_kb->board[i] = "-1";
+	    } 
+	}
+    }
+
+  // randomly fill in the NULL keys with collisions
+  std::random_shuffle(&collisions[0],&collisions[index]);
+  int counter = 0; // keep track of elements in collisions
+  while ( counter <= index )
+    {
+      for ( int i = 0; i < 32; i++)
+	{
+	  if ( child_kb->board[i] == "-1" )
+	    {
+	      child_kb->board[i] = collisions[counter];
+	      counter--;
+	    }
+	}
+    }
+
   
-  return keyboard1;
+  return child_kb;
 }
 
 int main()
