@@ -1,11 +1,11 @@
-all: fitness genetic genboard
+all: fitness genetic genboard mutbreed
 
 
 fitness: fitness.cpp fitness.h
 	g++ -std=c++11 -o fitness fitness.cpp
 
-genboard: genboard.cpp fitness.h
-	g++ -std=c++11 -o genboard genboard.cpp
+genMain: genMain.cpp fitness.h
+	g++ -std=c++11 -o genMain genMain.cpp
 
-genetic: genetic.cpp fitness.h
-	g++ -std=c++11 -o genetic genetic.cpp
+mutbreed: mutbreed.cpp fitness.h
+	g++ -std=c++11 -o mutbreed mutbreed.cpp
