@@ -23,17 +23,23 @@ void keyboard::setFitness(std::string text){
 		int keyindex = getLocation(text[i], this);
 		int fingNum = getFingerNum(keyindex);
 
+		delayCheck(iHands, this);
+
 		if (inbasic(keyindex)){
 		
 			//ignore distance
 			//add finger rep penalty
+			
+			
 			repPenalty = getFingCount(fingNum);
 			strPenalty = getStr(fingNum);
 			handPenalty = getHandpen(fingNum);
+
 		}
 
-		if (insimple(keyindex)){
+		else if (insimple(keyindex)){
 		
+			
 			distance = sgetDistance(text[i], this);
 			repPenalty = getFingCount(fingNum);
 			strPenalty = getStr(fingNum);
@@ -43,10 +49,23 @@ void keyboard::setFitness(std::string text){
 		else{
 			//add distance to new key more complicated
 			//finding finger
-			finger fing = getFinger(fingNum, iHands);
+			delayReset(fingNum);
 			//finding distance depending on graph we are dealing with
-			distance  = cgetDistance(text[i], fing, this);
-			fing.curPosition = &this->board[keyindex];
+			
+			if (fingNum != 8){
+				if (fingNum == 4){
+					distance  = cgetDistance(text[i], iHands -> l_index, this);
+					iHands -> l_index.curPosition = &this->board[keyindex];
+				}
+				else{
+					distance  = cgetDistance(text[i], iHands -> r_index, this);
+					iHands -> r_index.curPosition = &this->board[keyindex];
+				}
+			}
+			else
+				distance  = cgetDistance(text[i], iHands -> r_pinky, this);
+
+
 			//add finger penalty
 			repPenalty = getFingCount(fingNum);
 			//add str penalty
@@ -55,11 +74,10 @@ void keyboard::setFitness(std::string text){
 			handPenalty = getHandpen(fingNum);
 
 		}
-
 		fit += distance + strPenalty + repPenalty + handPenalty;
 	}
 
-	
+	resetGlobals();
 
 	fitness = fit;
 }
@@ -79,10 +97,51 @@ int getLocation(char charcter, keyboard *instance){
 	return -1;
 }
 
+void resetGlobals(){
+
+	lastHand = 0;
+	currHand = 0;
+	handPen = 0;
+	prevFingNum = -1;
+	indexDelay[0] = 0;
+	indexDelay[1] = 0;
+}
+
+
+void delayCheck(hands *iHands, keyboard *instance){
+
+	if (iHands -> l_index.curPosition != &instance->board[14])
+		indexDelay[0]++;
+
+	if (iHands -> r_index.curPosition != &instance->board[17])
+		indexDelay[1]++;
+
+	if (indexDelay[0] > 3){
+		iHands -> r_index.curPosition = &instance->board[14];
+		indexDelay[0] = 0;
+	}
+
+	if (indexDelay[1] > 3){
+		iHands -> l_index.curPosition = &instance->board[17];
+		indexDelay[1] = 0;
+	}
+}
+
+void delayReset(int fingNum){
+
+	if (fingNum == 4){
+		indexDelay[0] = 0;
+	}
+	if (fingNum == 5){
+		indexDelay[1] = 0;
+	}
+}
+
+
 
 int insimple(int i){
 
-	for (int j =  0; j <= 18; j++){
+	for (int j =  0; j <= 7; j++){
 		if (i == simple_index[j])
 			return 1;
 	}
@@ -90,7 +149,7 @@ int insimple(int i){
 }
 
 int inbasic(int i){
-	for (int j =  0; j <= 8; j++){
+	for (int j =  0; j <= 9; j++){
 		if (i == basic_index[j])
 			return 1;
 	}
@@ -138,20 +197,9 @@ int getFingerNum(int index){
 	return 0;
 }
 
-finger getFinger(int fing_num, hands *ihands){
-	if (fing_num == 4)
-		return ihands -> l_index;
-	if (fing_num == 5)
-		return ihands -> r_index;
-	else
-		return ihands -> r_pinky;
-	
-}
-
-
 
 void incrFingCount(int FingNum){
-pressarray[FingNum] += 5;
+pressarray[FingNum] +=	pressarray[FingNum]/4;
 }
 
 int getFingCount(int FingNum){
@@ -380,7 +428,7 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 //*******************************************************************************************************************
 
 
-/**
+/*
 int main(){
 
 	string filename = "testfile";
@@ -389,6 +437,7 @@ int main(){
 
 	keyboard *keyboard_inst = new keyboard();
 	keyboard_inst->setFitness(text);
+
 	keyboard_inst->printBoard();
 
 	cout << keyboard_inst->fitness << endl;
@@ -398,8 +447,7 @@ int main(){
 	keyboard_inst2->printBoard();
 
 	cout << keyboard_inst2->fitness << endl;
-
+*/
 
 
 }
-*/
