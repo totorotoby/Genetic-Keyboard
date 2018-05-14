@@ -80,7 +80,7 @@ keyboard *mutate(keyboard *parent)
  *  return child keyboard                                                            *
  *                                                                                   *
  * Keyboard graph representation:                                                    *
- * Each Letter represents the graph                                                  *
+ * Each Letter represents a graph                                                    *
  * Each Node represents the index on the board array                                 *
  *                                                                                   *
  *                                                                                   * 
