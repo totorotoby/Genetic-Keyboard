@@ -2,7 +2,7 @@
 and functions that deal with the text we will be using*/
 
 #include "fitness.h"
-
+using namespace std;
 //ALGORTHIM FOR FINDING FITNESS FOR A SINGLE KEYBOARD
 //*******************************************************************************************************************
 //*******************************************************************************************************************
@@ -384,7 +384,8 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 	//finding where in array our destination is based on ch
 	
 	for (int k = 0; k < 6 ; k++){
-		if ( ch == vertices[k].vertex->charcter)
+	  //cout << vertices[k].vertex->charcter << endl;
+		if ( ch == vertices[k].vertex->charcter && vertices[k].vertex != NULL)
 			vertdestindex = k;
 	}
 	cout << "vertdestindex is: " << vertdestindex << endl;
@@ -441,3 +442,13 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 
 //*******************************************************************************************************************
 //*******************************************************************************************************************
+/*
+int main(){
+
+  string text = readText("testfil.txt");
+  
+  keyboard *instance = new keyboard();
+  instance->setFitness(text);
+
+}
+*/
