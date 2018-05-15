@@ -10,9 +10,14 @@ and functions that deal with the text we will be using*/
 
 void keyboard::setFitness(std::string text){
 
+
+	this->printBoard();
 	int fit = 0;
 	hands *iHands = new hands(this);
 	for (int i = 0; i < text.length(); i++){
+
+		if(text[i] == '\n')
+			continue;
 
 		int strPenalty = 0;
 		int repPenalty = 0;
@@ -47,6 +52,8 @@ void keyboard::setFitness(std::string text){
 		}
 		//complex case
 		else{
+
+			cout << "charcter in complex case: " << text[i] << endl;
 			//add distance to new key more complicated
 			//finding finger
 			delayReset(fingNum);
@@ -360,6 +367,8 @@ void disttoAdj(key *current, int adjIndex, dijk_pair *vertices){
 // ch is the key we want to move to, finger is where finger is currently placed
 int cgetDistance(char ch, finger fing, keyboard *instance){
 
+
+	cout << "finger at charcter before moved in complex: " << fing.curPosition->charcter << endl;
 	////==========================================================================================
 	//setting up array to keep track of distances
 	dijk_pair *vertices;
@@ -374,15 +383,18 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 	//==========================================================================================
 	//finding where in array our destination is based on ch
 	
-	for (int k = 0; k < 5 ; k++){
+	for (int k = 0; k < 6 ; k++){
 		if ( ch == vertices[k].vertex->charcter)
 			vertdestindex = k;
 	}
+	cout << "vertdestindex is: " << vertdestindex << endl;
 
 	//==========================================================================================
 
 
 	key *current = fing.curPosition;
+
+	//cout << current->charcter<< endl;
 
 	int sourceindex = findIndexinverts(current, vertices);
 	
@@ -399,6 +411,9 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 		}
 	}
 	
+	printShortestDist(current, vertices);
+
+	cout << "distance is: " << vertices[vertdestindex].distto << endl;
 	return vertices[vertdestindex].distto;
 
 }
@@ -426,25 +441,3 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 
 //*******************************************************************************************************************
 //*******************************************************************************************************************
-
-
-/*
-int main(){
-
-	string filename = "testfile";
-	string text = readText(filename);
-	
-
-	keyboard *keyboard_inst = new keyboard();
-	keyboard_inst->setFitness(text);
-
-	keyboard_inst->printBoard();
-
-	cout << keyboard_inst->fitness << endl;
-
-	keyboard *keyboard_inst2 = new keyboard();
-	keyboard_inst2->setFitness(text);
-	keyboard_inst2->printBoard();
-
-	cout << keyboard_inst2->fitness << endl;
-*/
