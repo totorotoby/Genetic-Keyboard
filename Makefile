@@ -8,4 +8,4 @@ genMain: genMain.cpp fitness.h
 	g++ -std=c++11 -o genMain genMain.cpp
 
 mutbreed: mutbreed.cpp fitness.h
-	g++ -std=c++11 -o mutbreed mutbreed.cpp
+	g++ -g -std=c++11 -o mutbreed mutbreed.cpp
