@@ -414,9 +414,9 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 		}
 	}
 	
-	printShortestDist(current, vertices);
+	//	printShortestDist(current, vertices);
 
-	cout << "distance is: " << vertices[vertdestindex].distto << endl;
+	//	cout << "distance is: " << vertices[vertdestindex].distto << endl;
 	return vertices[vertdestindex].distto;
 
 }
@@ -445,7 +445,7 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 
 //*******************************************************************************************************************
 //*******************************************************************************************************************
-
+/*
 int main(){
 
   string text = readText("testfile.txt");
@@ -454,3 +454,4 @@ int main(){
   instance->setFitness(text);
 
 }
+*/

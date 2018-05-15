@@ -38,7 +38,7 @@ string readText(string filename){
 
 }
 
-int simple_index[] = {0,1,2,22,23,24,7,8,29, 30};
+int simple_index[] = {0,1,2,22,23,24,7,8,29,30};
 int basic_index[] = {11,12,13,14,17,18,19,20};
 int pressarray[] = {0};
 int strarray[] = {30, 20, 15, 5, 5, 15, 20, 30};
