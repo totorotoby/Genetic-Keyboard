@@ -57,8 +57,8 @@ int main() {
             keyboard *p2 = pool[rnd];
             
             //Calculate crossover probability
-            int c1 = p1->fitness / avgfit;
-            int c2 = p2->fitness / avgfit;
+            int c1 = avgfit / p1->fitness;
+            int c2 = avgfit / p2->fitness;
             int pc = (c1 * c2) * 100;
             
             //Breeding calculation
