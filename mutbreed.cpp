@@ -110,13 +110,13 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   child_kb->board[20].charcter = keyboard2->board[20].charcter;
   child_kb->board[21].charcter = keyboard2->board[21].charcter;
   child_kb->board[31].charcter = keyboard2->board[31].charcter;
-
+/**
   cout << "\n\n" << endl;
 
   child_kb->printBoard();
 
   cout << "\n\n" << endl;
-
+*/
   // traverse the child keyboard to find collisions
   char collisions[32] = {'0'};
   int index = 0;
@@ -131,11 +131,11 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
         }
       }
     }
-
+/**
     child_kb->printBoard();
 
     cout << "\n\n" << endl;
-    
+*/
   // randomly fill in the NULL keys with collisions
   std::random_shuffle(&collisions[0],&collisions[index]);
 
