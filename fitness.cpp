@@ -148,7 +148,7 @@ void delayReset(int fingNum){
 
 int insimple(int i){
 
-	for (int j =  0; j <= 7; j++){
+	for (int j =  0; j <= 9; j++){
 		if (i == simple_index[j])
 			return 1;
 	}
@@ -156,7 +156,7 @@ int insimple(int i){
 }
 
 int inbasic(int i){
-	for (int j =  0; j <= 9; j++){
+	for (int j =  0; j <= 7; j++){
 		if (i == basic_index[j])
 			return 1;
 	}
@@ -385,8 +385,10 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 	
 	for (int k = 0; k < 6 ; k++){
 	  //cout << vertices[k].vertex->charcter << endl;
-		if ( ch == vertices[k].vertex->charcter && vertices[k].vertex != NULL)
+	  if ( ch == vertices[k].vertex->charcter && vertices[k].vertex != NULL){
 			vertdestindex = k;
+		break;
+	  }
 	}
 	cout << "vertdestindex is: " << vertdestindex << endl;
 
@@ -425,7 +427,8 @@ void printShortestDist(key *current, dijk_pair *vertices){
 	cout << "we are at key: " << current->charcter << endl;
 
 	for (int i = 0 ; i < 6 ; i++){
-		cout << "distance to charcter " << vertices[i].vertex->charcter << " is " << vertices[i].distto << endl;
+	  if (vertices[i].vertex != NULL)
+	    cout << "distance to charcter " << vertices[i].vertex->charcter << " is " << vertices[i].distto << endl;
 	}
 
 }
@@ -442,13 +445,12 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 
 //*******************************************************************************************************************
 //*******************************************************************************************************************
-/*
+
 int main(){
 
-  string text = readText("testfil.txt");
+  string text = readText("testfile.txt");
   
   keyboard *instance = new keyboard();
   instance->setFitness(text);
 
 }
-*/
