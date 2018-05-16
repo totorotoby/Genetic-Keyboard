@@ -13,7 +13,7 @@ void keyboard::setFitness(std::string text){
 
 	//this->printBoard();
 
-	cout<<"\n\n"<<endl;
+	//cout<<"\n\n"<<endl;
 	int fit = 0;
 	hands *iHands = new hands(this);
 	for (int i = 0; i < text.length(); i++){

@@ -40,7 +40,7 @@ int main() {
         }
         avgfit = avgfit/100;
         //DEBUG FLAG
-        cout << "avgfit: " << avgfit << "\n";
+        //cout << "avgfit: " << avgfit << "\n";
         
         //Reset next generation
         int nextGenSize = 0;
