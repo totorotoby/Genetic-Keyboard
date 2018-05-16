@@ -34,19 +34,34 @@ int main(int argc, char **argv) {
     
     for (int i = 0; i < gen; i++) {
         //DEBUG FLAG
-        cout << i << " generation\n";
-        
+      cout << "Generation " << i;
+
+      keyboard *min_kb;
+      int min_fit = 999999999;
+      
         //Compute fitness for each keyboard and the overall avg fitness
         int avgfit = 0;
         for (int j = 0; j<100; j++) {
             pool[j]->setFitness(txt);
+	    if (pool[j]->fitness < min_fit)
+	      {
+		min_kb = pool[j];
+		min_fit = pool[j]->fitness;
+	      }
+	    
             //DEBUG FLAG
             //cout << j << " fitness: " << pool[j]->fitness << "\n";
             avgfit = avgfit + pool[j]->fitness;
         }
         avgfit = avgfit/100;
         //DEBUG FLAG
-        cout << "avgfit: " << avgfit << "\n";
+        cout << ": avgfit = " << avgfit << "\n";
+
+	
+	cout << "Best keyboard: fitness = " << min_fit << endl;
+	min_kb->printBoard();
+	printf("\n");
+	  
         
         //Reset next generation
         int nextGenSize = 0;
