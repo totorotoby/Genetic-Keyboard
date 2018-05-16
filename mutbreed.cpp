@@ -110,15 +110,12 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
   child_kb->board[20].charcter = keyboard2->board[20].charcter;
   child_kb->board[21].charcter = keyboard2->board[21].charcter;
   child_kb->board[31].charcter = keyboard2->board[31].charcter;
-/**
-  cout << "\n\n" << endl;
 
-  child_kb->printBoard();
-
-  cout << "\n\n" << endl;
-*/
   // traverse the child keyboard to find collisions
-  char collisions[32] = {'0'};
+  char collisions[32] = {0};
+  char all[32] = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o',
+		  'p', ' ', 'a', 's', 'd', 'f', 'g', 'h', 'j','k', 'l', ';', '"',
+		  'z', 'x', 'c', 'v','b','n','m','<','>','?'};
   int index = 0;
   for (int i = 0; i < 32; i++)
     {
@@ -126,37 +123,63 @@ keyboard *breed(keyboard *keyboard1,keyboard *keyboard2){
       {
         if ( child_kb->board[i].charcter == child_kb->board[j].charcter && i != j )
         {
+	  //printf("Collsion found %c at %d\n", child_kb->board[i].charcter, i);
           collisions[index++]=child_kb->board[i].charcter;
           child_kb->board[i].charcter = '!';
+	  break;
         }
       }
     }
-/**
-    child_kb->printBoard();
 
-    cout << "\n\n" << endl;
-*/
-  // randomly fill in the NULL keys with collisions
-  std::random_shuffle(&collisions[0],&collisions[index]);
+  // Subtract duplicates from all possible characters
+  for (int dup_index = 0; dup_index < 32; dup_index++) // for each char in collisions
+    {
+      for (int all_index = 0; all_index < 32; all_index++) // remove the collisions from all
+	{
+	  if (collisions[dup_index] == all[all_index])
+	    {
+	      all[all_index] = '!';
+	      break;
+	    }
+	}
+    }
 
-  /*
-  cout << "collisions: " << endl;
-  for (int i = 0 ; i < 32 ; i++)
-    cout << collisions[i] << endl;
-  */
-
-  int counter = 0; // keep track of elements in collisions
-  while ( counter < index )
-  {
-      for ( int i = 0; i < 32; i++)
-      {
-        if ( child_kb->board[i].charcter == '!' )
-        {
-          child_kb->board[i].charcter = collisions[counter];
-          counter++;
-          break;
-        }
-      }
-  }
+  // Subtract current child_kb from all in order to leave just
+  // the characters that can be added to the child_kb in order to
+  // avoid all duplicates
+  for (int child_index = 0; child_index < 32; child_index++)
+    {
+      if (child_kb->board[child_index].charcter == '!') // Skip '!' in child_kb
+	  continue;
+      for (int all_index = 0; all_index < 32; all_index++)
+	{
+	  if (child_kb->board[child_index].charcter == all[all_index])
+	    {
+	      all[all_index] = '!';
+	      break;
+	    }
+	}
+    }
+  
+  // shuffle the non_collisions array
+  std::random_shuffle(&all[0],&all[31]);
+  
+  // Add non_collisions back into the child keyboard
+  for (int i = 0; i < 32; i++)
+    {
+      if (child_kb->board[i].charcter == '!')
+	{
+	  // Add the next non '!' character that is not a duplicate to child_kb
+	  for (int all_index = 0; all_index < 32; all_index++)
+	    {
+	      if (all[all_index] == '!')
+		continue;
+	      
+	      child_kb->board[i].charcter = all[all_index];
+	      all[all_index] = '!';
+	      break;
+	    }
+	}
+    }
   return child_kb;
 }
