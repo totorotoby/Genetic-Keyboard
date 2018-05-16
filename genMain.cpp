@@ -2,7 +2,7 @@
 #include "mutbreed.cpp"
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) {
     
     //Initialize keyboard pool
     keyboard *pool[100];
@@ -12,7 +12,13 @@ int main() {
     }
     
     //Just using this file as a test
-    string txt = readText("testfile.txt");
+    if (argc != 2)
+      {
+	printf("Usage: ./genMain <language_file.txt>\n");
+	exit(2);
+      }
+    
+    string txt = readText(argv[1]);
     
     //Get number of generations
     int gen;
@@ -40,7 +46,7 @@ int main() {
         }
         avgfit = avgfit/100;
         //DEBUG FLAG
-        //cout << "avgfit: " << avgfit << "\n";
+        cout << "avgfit: " << avgfit << "\n";
         
         //Reset next generation
         int nextGenSize = 0;
