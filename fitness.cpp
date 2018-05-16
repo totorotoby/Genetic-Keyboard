@@ -11,7 +11,9 @@ using namespace std;
 void keyboard::setFitness(std::string text){
 
 
-	this->printBoard();
+	//this->printBoard();
+
+	cout<<"\n\n"<<endl;
 	int fit = 0;
 	hands *iHands = new hands(this);
 	for (int i = 0; i < text.length(); i++){
@@ -53,7 +55,7 @@ void keyboard::setFitness(std::string text){
 		//complex case
 		else{
 
-			cout << "charcter in complex case: " << text[i] << endl;
+			//cout << "charcter in complex case: " << text[i] << endl;
 			//add distance to new key more complicated
 			//finding finger
 			delayReset(fingNum);
@@ -368,7 +370,7 @@ void disttoAdj(key *current, int adjIndex, dijk_pair *vertices){
 int cgetDistance(char ch, finger fing, keyboard *instance){
 
 
-	cout << "finger at charcter before moved in complex: " << fing.curPosition->charcter << endl;
+	
 	////==========================================================================================
 	//setting up array to keep track of distances
 	dijk_pair *vertices;
@@ -390,7 +392,7 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 		break;
 	  }
 	}
-	cout << "vertdestindex is: " << vertdestindex << endl;
+	//cout << "vertdestindex is: " << vertdestindex << endl;
 
 	//==========================================================================================
 
