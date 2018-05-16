@@ -27,6 +27,7 @@ void getAdjdistances(key *current, dijk_pair *vertices);
 void resetGlobals();
 void delayCheck(hands *iHands, keyboard *instance);
 void delayReset(int fingNum);
+void freeArray(dijk_pair *vertices);
 
 
 string readText(string filename){
