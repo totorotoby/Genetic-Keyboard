@@ -417,9 +417,9 @@ int cgetDistance(char ch, finger fing, keyboard *instance){
 	}
 	
 	//	printShortestDist(current, vertices);
-
-	//	cout << "distance is: " << vertices[vertdestindex].distto << endl;
-	return vertices[vertdestindex].distto;
+	int toreturn = vertices[vertdestindex].distto;
+	freeArray(vertices);
+	return  toreturn;
 
 }
 
@@ -442,6 +442,11 @@ void getAdjdistances(key *current, dijk_pair *vertices){
 			disttoAdj(current, i, vertices);
 		}
 	}
+}
+
+
+void freeArray(dijk_pair *vertices){
+	free(vertices);
 }
 
 
