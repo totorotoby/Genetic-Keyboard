@@ -5,4 +5,4 @@
 
 
 To run our current program `make genMain`, and then run `./genMain <filename>`.
-We provide a few testfiles, but if you wold like to run your own first `chmod +x editfile.sh`, `./editfile.sh <testfile>`, and run genMain with  `<testfile.filtered>`
+We provide a few testfiles, but if you would like to run your own first `chmod +x editfile.sh`, `./editfile.sh <testfile>`, and then run genMain with  `<testfile.filtered>`
