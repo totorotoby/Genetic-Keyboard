@@ -28,6 +28,7 @@ class keyboard {
     //keyboard array 
     key board[32]; 
     int fitness;
+    int generation;
     keyboard();
     void printBoard();
     void setFitness(string text);

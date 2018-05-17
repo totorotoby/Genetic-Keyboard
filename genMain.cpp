@@ -1,6 +1,32 @@
 /*Program to run genetic algorthim through*/
 #include "mutbreed.cpp"
 using namespace std;
+#include <vector>
+
+
+
+//comparator for to keyboards fitnesses
+int keyboardComp(const keyboard *a, const keyboard *b)
+{
+    int toreturn = a->fitness > b->fitness;
+    return toreturn;
+}
+/*void printBest(keyboard *bestOverGen[], int gen, int keyNum){
+
+    std::vector <keyboard> myvector;
+    myvector.insert(myvector.begin(), bestOverGen, bestOverGen+gen);
+    std::sort(myvector, myvector + gen, keyboardComp);
+
+    for (int i = 0 ; i < keyNum ; i++){
+        cout << "keyboard: " << i <<endl;
+        cout<< "generation: " << myvector.at(i)->generation << endl;
+        cout << "fitness: " << myvector.at(i)->fitness << endl; 
+        cout << "Display: " << endl;
+        myvector.at(i)->printBoard();
+        cout << "\n\n";
+    }
+}
+*/
 
 int main(int argc, char **argv) {
     
@@ -29,6 +55,11 @@ int main(int argc, char **argv) {
     int gen;
     cout << "Enter number of generations: ";
     cin >> gen;
+
+    //Number of keyboard you want printed
+    int keyNum;
+    //cout << "Enter number of keyboards Displayed: ";
+    //cin >> keyNum;
     
     //Random Seed
     srand(time(NULL));
@@ -36,6 +67,8 @@ int main(int argc, char **argv) {
     
     //Pool for next generation
     keyboard *nextGen[100];
+    keyboard *bestOverGen[gen];
+    int bestCount;
     
     for (int i = 0; i < gen; i++) {
         //DEBUG FLAG
@@ -51,6 +84,7 @@ int main(int argc, char **argv) {
 	    if (pool[j]->fitness < min_fit)
 	      {
 		min_kb = pool[j];
+        min_kb->generation = i;
 		min_fit = pool[j]->fitness;
 	      }
 	    
@@ -67,8 +101,7 @@ int main(int argc, char **argv) {
 	    cout << "Best keyboard: fitness = " << min_fit << endl;
 	    min_kb->printBoard();
 	    printf("\n");
-	  }
-	  
+	  }	  
         
         //Reset next generation
         int nextGenSize = 0;
@@ -105,4 +138,7 @@ int main(int argc, char **argv) {
             pool[k] = nextGen[k];
         }
     }
+
+    //printBest(bestOverGen, gen, keyNum);
+
 }

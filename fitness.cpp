@@ -125,12 +125,12 @@ void delayCheck(hands *iHands, keyboard *instance){
 	if (iHands -> r_index.curPosition != &instance->board[17])
 		indexDelay[1]++;
 
-	if (indexDelay[0] > 3){
+	if (indexDelay[0] >= 3){
 		iHands -> r_index.curPosition = &instance->board[14];
 		indexDelay[0] = 0;
 	}
 
-	if (indexDelay[1] > 3){
+	if (indexDelay[1] >= 3){
 		iHands -> l_index.curPosition = &instance->board[17];
 		indexDelay[1] = 0;
 	}
@@ -208,7 +208,10 @@ int getFingerNum(int index){
 
 
 void incrFingCount(int FingNum){
-pressarray[FingNum] +=	pressarray[FingNum]/4;
+if (pressarray[FingNum] < 4)
+	pressarray[FingNum] +=	1;
+else
+	pressarray[FingNum] += pressarray[FingNum]/2;
 }
 
 int getFingCount(int FingNum){
@@ -239,7 +242,7 @@ int getHandpen(int fingNum){
 
 
 	if (currHand == lastHand && (currHand != 0))
-		handPen += 3;
+		handPen += 5;
 
 	if (currHand != lastHand)
 		handPen = 0;
