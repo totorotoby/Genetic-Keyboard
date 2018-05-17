@@ -38,11 +38,16 @@ int main(int argc, char **argv) {
     }
     
     //Just using this file as a test
-    if (argc != 2)
+    if (argc < 2)
       {
 	printf("Usage: ./genMain <language_file.txt>\n");
 	exit(2);
       }
+
+    int print_out = 0;
+    // Get printout flag
+    if (argc == 3)
+      print_out = 1;
     
     string txt = readText(argv[1]);
     
@@ -91,12 +96,12 @@ int main(int argc, char **argv) {
         //DEBUG FLAG
         cout << ": avgfit = " << avgfit << "\n";
 
-	bestOverGen[bestCount] = min_kb;
-    bestCount++;
-	cout << "Best keyboard: fitness = " << min_fit << endl;
-	min_kb->printBoard();
-	printf("\n");
-	  
+	if (print_out)
+	  {
+	    cout << "Best keyboard: fitness = " << min_fit << endl;
+	    min_kb->printBoard();
+	    printf("\n");
+	  }	  
         
         //Reset next generation
         int nextGenSize = 0;
