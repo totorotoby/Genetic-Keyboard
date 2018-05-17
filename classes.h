@@ -39,7 +39,7 @@ keyboard::keyboard(){
     //array to be shuffled
     char to_shuffle[] = {'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o',
     'p', ' ', 'a', 's', 'd', 'f', 'g', 'h', 'j','k', 'l', ';', '"', 
-    'z', 'x', 'c', 'v','b','n','m','<','>','?'};
+    'z', 'x', 'c', 'v','b','n','m',',','.','?'};
     std::random_shuffle(&to_shuffle[0],&to_shuffle[31]);
 
     //adding charcters  and distances to board
