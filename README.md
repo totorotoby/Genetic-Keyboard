@@ -1,6 +1,7 @@
 # Genetic Keyboard (genBoard)
 
 A Genetic Algorithm for Finding the Optimal Keyboard for Typing Speed
+
 Final Project for CS241, Systems Programming
 
 ## Running the Program
