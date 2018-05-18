@@ -1,8 +1,52 @@
 # Genetic Keyboard (genBoard)
-#### This program generates the most optimal keyboard using a genetic algorithm
-#### Final Project for CS241, Systems Programming
-#### Group Members: Dorian Levine, Marouane Abra, Toby Harvey and Steven Abreu
+
+A Genetic Algorithm for Finding the Optimal Keyboard for Typing Speed
+Final Project for CS241, Systems Programming
+
+## Running the Program
+
+Clone the Genetic-Keyboard repository
+
+```
+git clone https://github.com/totorotoby/Genetic-Keyboard.git
+```
+
+### Compiling
+
+Compile the program using our Makefile
+
+```
+make genMain
+```
+
+### Running the tests
+
+We provided test files in the current directory
+
+```
+./genMain <filename>
+```
+If you would like to run your own tests, follow the following steps to get the files ready to be used
+
+```
+chmod +x editfile.sh
+```
+run the editfile shell script on the test file
+
+```
+./editfile.sh <testfile>
+```
+
+then run the genMain program with the following command
+
+```
+./genMain <testfile.filtered>
+```
 
 
-To run our current program `make genMain`, and then run `./genMain <filename>`.
-We provide a few testfiles, but if you would like to run your own first `chmod +x editfile.sh`, `./editfile.sh <testfile>`, and then run genMain with  `<testfile.filtered>`
+## Authors
+
+* **Dorian Levine**
+* **Marouane Abra**
+* **Toby Harvey**
+* **Steven Abreu**
