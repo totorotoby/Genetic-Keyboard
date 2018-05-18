@@ -43,12 +43,6 @@ int main(int argc, char **argv) {
 	printf("Usage: ./genMain <language_file.txt>\n");
 	exit(2);
       }
-
-    int print_out = 0;
-    // Get printout flag
-    if (argc == 3)
-      print_out = 1;
-    
     string txt = readText(argv[1]);
     
     //Get number of generations
@@ -96,12 +90,10 @@ int main(int argc, char **argv) {
         //DEBUG FLAG
         cout << ": avgfit = " << avgfit << "\n";
 
-	if (print_out)
-	  {
-	    cout << "Best keyboard: fitness = " << min_fit << endl;
-	    min_kb->printBoard();
-	    printf("\n");
-	  }	  
+	cout << "Best keyboard: fitness = " << min_fit << endl;
+	min_kb->printBoard();
+	printf("\n");
+
         
         //Reset next generation
         int nextGenSize = 0;
